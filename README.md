@@ -3,7 +3,7 @@
  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Grammar Checker</h3>
+<h2 align="center">JustGram</h2>
 
 <div align="center">
 
@@ -112,7 +112,6 @@ Deployment details will be given upon finalizing the project.
 
 - [@ramazankilimci](https://github.com/ramazankilimci) - Idea & Initial work
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
