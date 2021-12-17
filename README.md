@@ -27,14 +27,12 @@
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
-This project will allow you to check your sentences in English or Turkish.
+This project will allow you to check your sentences in English or Turkish. It is being developed for SWE599 class in Boğaziçi University.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -42,64 +40,73 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+* Before you start implementing/installing this project, pick an IDE of your choice. I've used [Visual Studio Code](https://code.visualstudio.com/download). You can go direclty to link and download it.
+
+* Install [docker](https://docs.docker.com/get-docker/) on your desktop. You can use click on docker link and download of your choice.
+
+* Check your docker version to see if everything is working fine.
 
 ```
-Give examples
+docker -v
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running.
+A step by step basic instructions were provided below. This will be extended when project grows time to time.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+1) Clone the git repository.
 
 ```
-until finished
+git clone https://github.com/ramazankilimci/grammar-checker.git
 ```
 
-End with an example of getting some data out of the system or using it for a little demo.
+2) Go to application folder.
+
+```
+cd grammar-checker
+```
+
+3) Run the below docker command.
+
+```
+docker compose up
+```
+
+4) You will reach the application via http://localhost.
 
 ## 🔧 Running the tests <a name = "tests"></a>
 
-Explain how to run the automated tests for this system.
+Below you can find the detailed information regarding tests.
 
-### Break down into end to end tests
+### How to run unit tests
 
-Explain what these tests test and why
+These tests checks for every method if they are working as expected or not. To run the tests, please execute below command.
 
 ```
-Give an example
+python manage.py test
 ```
 
 ### And coding style tests
 
-Explain what these tests test and why
+For coding sytle tests, this project uses [pyling-django](https://github.com/PyCQA/pylint-django) which is a pylint plugin for Django. To run linting manually, please execute the below command.
 
 ```
-Give an example
+pylint --load-plugins pylint_django --django-settings-module=swe599_project.settings
 ```
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+Usage instructions will be shared soon!
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Add additional notes about how to deploy this on a live system.
+Deployment details will be given upon finalizing the project.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [PostgreSQL](https://www.postgresql.org/) - Database
+- [Django](https://www.djangoproject.com/) - Web Framework
+- [Azure](https://azure.microsoft.com/en-us/) - Cloud Environment
 
 ## ✍️ Authors <a name = "authors"></a>
 
@@ -109,6 +116,5 @@ See also the list of [contributors](https://github.com/kylelobo/The-Documentatio
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- Suzan Üsküdarlı (Advisor)
+
