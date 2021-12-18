@@ -1,7 +1,3 @@
-# Image folders
-images
-images/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
