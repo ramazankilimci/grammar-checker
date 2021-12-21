@@ -1,18 +1,20 @@
 version: '3.4'
 
 services:
-  db:
+  grammardb:
     image: postgres
+    container_name: justgramdb
     volumes: 
-      - mydb:/var/lib/postgresql/data
+      - mygrammardb:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=grammar
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-  grammarchecker:
+  web:
     image: justgram
+    container_name: justgram
     volumes:
       - .:/app
     build:
@@ -25,4 +27,6 @@ services:
     ports:
       - 80:80
     depends_on:
-      - db
+      - grammardb
+volumes:
+  mygrammardb: 
