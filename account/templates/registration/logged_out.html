@@ -4,7 +4,10 @@
   
   <div class="container-fluid">
     <h1>Logged Out</h1>
-    <p>You've successfully logged out.</p>
+    <p>
+      You've successfully logged out.
+      You can <a href="{% url "account:login" %}">log-in</a> again.
+    </p>
   </div>
 
   {% endblock%}
