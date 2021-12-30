@@ -7,6 +7,8 @@ from . import services
 def index(request):
     print("REQUEST: ", request)
     spelled = False
+    orig_text = ''
+    spelled_text = ''
     if request.method == 'POST':
         form = SpellCheckForm(request.POST)
         print("FORM: ", form)
