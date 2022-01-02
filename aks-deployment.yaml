@@ -87,7 +87,9 @@ spec:
             memory: "512Mi"
             cpu: "0.2"
         ports:
-        - containerPort: 8000
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
