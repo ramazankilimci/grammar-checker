@@ -34,8 +34,43 @@ def index(request):
             if not request.user.is_anonymous:
                 spell_obj = Spell(orig_text=orig_text, spelled_text=spelled_text, user=request.user)
                 spell_obj.save()
-    else:
-        form = SpellCheckForm()
+                
+                published_date = get_published_date()
+                actor_profile_url = get_user_profile_url(request.user.id)
+                actor_fullname = get_user_fullname(request.user)
+
+                target_spell_url = get_spell_text_url(spell_obj.id)
+                object_spell_url = get_spell_text_url(spell_obj.id)
+
+                w3c_json = json.dumps({
+                            "@context": "https://www.w3.org/ns/activitystreams",
+                            "summary": "{} spelled {} to {}".format(actor_fullname, orig_text, spelled_text),
+                            "type": "Create",
+                            "published": published_date,
+                            "actor": {
+                                "type": "Person",
+                                "id": actor_profile_url,
+                                "name": actor_fullname,
+                                "url": actor_profile_url
+                            },
+                            "object": {
+                                "id": target_spell_url,
+                                "type": "Note",
+                                "url": target_spell_url,
+                                "name": orig_text,
+                            },
+                            "target": {
+                                "id": object_spell_url,
+                                "type": "Note",
+                                "url": object_spell_url,
+                                "name": spelled_text,
+                            }
+                        })
+                print(w3c_json)
+
+                create_action(request.user, verb=1, activity_json=w3c_json, target=spell_obj)
+            else:
+                form = SpellCheckForm()
     print("SPELLED: ", spelled)
 
     # Save Spell action
@@ -43,42 +78,8 @@ def index(request):
     user = User.objects.get(id=request.user.id)
 
     # Save Spell Text
-    spell_obj
 
-    published_date = get_published_date()
-    actor_profile_url = get_user_profile_url(request.user.id)
-    actor_fullname = get_user_fullname(request.user)
 
-    target_spell_url = get_spell_text_url(spell_obj.id)
-    object_spell_url = get_spell_text_url(spell_obj.id)
-
-    w3c_json = json.dumps({
-                "@context": "https://www.w3.org/ns/activitystreams",
-                "summary": "{} spelled {} to {}".format(actor_fullname, orig_text, spelled_text),
-                "type": "Create",
-                "published": published_date,
-                "actor": {
-                    "type": "Person",
-                    "id": actor_profile_url,
-                    "name": actor_fullname,
-                    "url": actor_profile_url
-                },
-                "object": {
-                    "id": target_spell_url,
-                    "type": "Note",
-                    "url": target_spell_url,
-                    "name": orig_text,
-                },
-                "target": {
-                    "id": object_spell_url,
-                    "type": "Note",
-                    "url": object_spell_url,
-                    "name": spelled_text,
-                }
-            })
-    print(w3c_json)
-
-    create_action(request.user, verb=1, activity_json=w3c_json, target=spell_obj)
 
     return render(request, 'grammar/index.html', {'orig_text': orig_text, 'spelled_text': spelled_text, 'spelled': spelled})
 
