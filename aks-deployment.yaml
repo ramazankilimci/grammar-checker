@@ -81,13 +81,13 @@ spec:
         image: "acrjustgram.azurecr.io/justgram:#{Build.BuildId}#"
         imagePullPolicy: Always
         command: ["/bin/bash", "-c"]
-        args: ["python manage.py makemigrations; python manage.py migrate; gunicorn swe599_project.wsgi:application --bind 0.0.0.0:80"]
+        args: ["python manage.py makemigrations; python manage.py migrate; gunicorn swe599_project.wsgi:application --bind 0.0.0.0:8000"]
         resources:
           limits:
             memory: "512Mi"
             cpu: "0.2"
         ports:
-        - containerPort: 80
+        - containerPort: 8000
       imagePullSecrets:
       - name: regcred
 ---
@@ -101,4 +101,4 @@ spec:
     app: justgram-web
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8000
