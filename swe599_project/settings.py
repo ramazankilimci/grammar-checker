@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'grammar.apps.GrammarConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,10 @@ LOGIN_REDIRECT_URL = 'grammar:index'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 # LOGOUT_REDIRECT_URL = 'grammar:index'
+
+# REST Configuration
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
