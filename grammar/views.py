@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .forms import SpellCheckForm
 from django.http import HttpResponseBadRequest
 from . import services
+from .models import Spell
+from django.contrib.auth.models import AnonymousUser
 
 # Create your views here.
 def index(request):
@@ -20,9 +22,15 @@ def index(request):
             orig_text = cd['spell_text']
             spelled_text = srv.spell_sentence(orig_text)
             spelled = True
+            print(request.user.is_anonymous)
+            print(AnonymousUser.is_anonymous)
+            if not request.user.is_anonymous:
+                spell_obj = Spell(orig_text=orig_text, spelled_text=spelled_text, user=request.user)
+                spell_obj.save()
     else:
         form = SpellCheckForm()
     print("SPELLED: ", spelled)
+
     return render(request, 'grammar/index.html', {'orig_text': orig_text, 'spelled_text': spelled_text, 'spelled': spelled})
 
 # Custom AJAX required decorator
