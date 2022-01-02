@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-24lr!!%o8jpikauyt%&xvhwck$5seuwmi4xzcy#y52ltxrw*7!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'grammar.apps.GrammarConfig',
     'rest_framework',
+    'actions.apps.ActionsConfig',
 ]
 
 MIDDLEWARE = [
@@ -88,28 +89,28 @@ WSGI_APPLICATION = 'swe599_project.wsgi.application'
 # }
 
 # Docker PostgreSQL configuration
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'grammar',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'grammardb',
-#         'PORT': '5432'
-#     }
-# }
-
-# Kubernetes database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'grammar',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'postgres',
+        'HOST': 'grammardb',
         'PORT': '5432'
     }
 }
+
+# Kubernetes database configuration
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'grammar',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'postgres',
+#         'PORT': '5432'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
