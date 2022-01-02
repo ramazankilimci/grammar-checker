@@ -88,13 +88,25 @@ WSGI_APPLICATION = 'swe599_project.wsgi.application'
 # }
 
 # Docker PostgreSQL configuration
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'grammar',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'grammardb',
+#         'PORT': '5432'
+#     }
+# }
+
+# Kubernetes database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'grammar',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'grammardb',
+        'HOST': 'postgres',
         'PORT': '5432'
     }
 }

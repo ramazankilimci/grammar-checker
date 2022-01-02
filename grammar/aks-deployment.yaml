@@ -78,7 +78,7 @@ spec:
     spec:
       containers:
       - name: justgram-web
-        image: acrjustgram.azurecr.io/justgram:latest
+        image: "acrjustgram.azurecr.io/justgram:#{Build.BuildId}#"
         imagePullPolicy: Always
         command: ["/bin/bash", "-c"]
         args: ["python manage.py makemigrations; python manage.py migrate; gunicorn pubmed_project.wsgi:application --bind 0.0.0.0:80"]
