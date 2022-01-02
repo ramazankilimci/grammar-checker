@@ -1,0 +1,67 @@
+ {% extends 'base.html' %}
+
+  {% block content%}
+  <form action="{% url 'grammar:index' %}" class="row g-2" method="post" id="spell"> 
+    {% csrf_token %}
+    <div class="container-md m-5">
+    
+      <h3>Your history</h3>
+  
+    <div class="container-md m-5">
+    <div class="row">
+      <div class="col">
+        
+        {% if user.is_authenticated %}
+        
+        {% for activity in activities %}
+        <p class="fs-4">
+          <a href={{ activity.2 }}> {{ activity.1 }} </a>
+
+          {% if activity.0 == 'Create' %}
+            spell-checked
+          {% elif activity.0 == 'Follow' %}
+            searched
+          {% elif activity.0 == 'Unfollow' %}
+            favourited
+          {% elif activity.0 == 'Search' %}
+            tagged
+          {% endif %}
+
+          <a href={{ activity.4 }} class="text-decoration-none"> <mark>"{{ activity.3 }}" </mark></a>
+           to 
+          <a href={{ activity.6 }} class="text-decoration-none"> <mark>"{{ activity.5 }}"</mark> </a>
+          <br>
+      </p>
+        {% endfor %}
+      {% endif %}
+      </div>
+    </div>
+</div>
+
+  <!--
+  <script type="text/javascript">
+    $(#spell).click(function(e){
+        //alert(target);
+        
+        e.preventDefault();
+        $.post('',
+            {
+                id: $('#'+target).data('id'),
+                action: $('#'+target).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok')
+                {
+                    var previous_action = $('#'+target).data('action');
+
+                    // toggle data-action
+                    $('#'+target).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+                    // toggle link text
+                    $('#'+target).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+}
+        });
+    });
+
+</script>
+-->
+  {% endblock%}
