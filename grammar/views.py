@@ -75,7 +75,7 @@ def index(request):
 
     # Save Spell action
     # Target user object gets using below query
-    user = User.objects.get(id=request.user.id)
+    # user = User.objects.get(id=request.user.id)
 
     # Save Spell Text
 
@@ -121,18 +121,19 @@ def get_spell_text_url(spell_id):
 
 
 def spellings(request):
-    print("User Last Login:", request.user.last_login)
-    actor_user_last_login = request.user.last_login.replace(tzinfo=None)
+    # print("User Last Login:", request.user.last_login)
+    # actor_user_last_login = request.user.last_login.replace(tzinfo=None)
     activities = []
-    user_actions = Action.objects.filter(user_id=request.user.id)
-    for action in user_actions:
-        print(action.action_json)
-    #deserialized = serializers.deserialize('json', user.action_json)
-        print(json.loads(action.action_json)['published'])
-        last_action = json.loads(action.action_json)
-        published_date = last_action['published']
-        activity_published_date = datetime.datetime.strptime(published_date[:-7], '%Y-%m-%dT%H:%M:%S')
-        if activity_published_date > actor_user_last_login:
+    if not request.user.is_anonymous:
+        user_actions = Action.objects.filter(user_id=request.user.id)
+        for action in user_actions:
+            print(action.action_json)
+        #deserialized = serializers.deserialize('json', user.action_json)
+            print(json.loads(action.action_json)['published'])
+            last_action = json.loads(action.action_json)
+            published_date = last_action['published']
+            activity_published_date = datetime.datetime.strptime(published_date[:-7], '%Y-%m-%dT%H:%M:%S')
+            # if activity_published_date > actor_user_last_login:
             action_type = last_action['type']
             action_actor_name= last_action['actor']['name']
             action_actor_url = last_action['actor']['url']
