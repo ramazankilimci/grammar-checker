@@ -7,4 +7,5 @@ app_name='grammar'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('/spellings', views.spellings, name='spellings'),
 ]

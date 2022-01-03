@@ -9,6 +9,7 @@ app_name = 'grammar'
 
 urlpatterns = [
     path('spell_check/', views.spell_check),
+    path('spell_check/<int:pk>', views.spell_check_detail),
     # path('', include(router.urls)),
 ]
 

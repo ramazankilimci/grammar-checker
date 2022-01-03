@@ -3,34 +3,25 @@ from rest_framework import serializers
 from grammar.models import Spell
 from grammar import services
 from rest_framework.fields import CurrentUserDefault
+from django.contrib.auth.models import User
 
 class SpellSerializer(serializers.ModelSerializer):
     #orig_text = serializers.SerializerMethodField()
-    spelled_text = serializers.SerializerMethodField()
-    user = serializers.SerializerMethodField()
+    spelled_text = serializers.CharField(allow_blank=True, required=False)
+    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
     # I have not defined any "fields" attribute. This will get all fields of the model
     class Meta:
         model = Spell
-        fields = ['orig_text', 'spelled_text', 'user']
+        fields = ['orig_text', 'spelled_text', 'user', 'id', 'spelled_date']
 
-    # def get_serializer_context(self):
-    #     context = super().get_serializer_context()
-    #     print('Context:', context)
-    #     context['spelled_text'] =  spell_sentence(context['orig_text']) # calculate something here, you have access to self.request
-    #     return context
-
-
-    # def get_spelled_text(self, obj):
-    #     print('--------Orig_text:----------', obj.orig_text)
-    #     srv = services
-    #     spelled_text = srv.spell_sentence(obj.orig_text)
-    #     return spelled_text
-    
-    # def get_user(self):
-    #     return CurrentUserDefault()
-
-    # def create(self, validated_data):
-    #     """
-    #     Create and return a new `Spell` instance, given the validated data.
-    #     """
-    #     return Spell.objects.create(**validated_data)
+    def create(self, validated_data):
+        """
+        Create and return a new `Spell` instance, given the validated data.
+        """
+        srv = services
+        spell = Spell(orig_text=validated_data['orig_text'],
+                      spelled_text=srv.spell_sentence(validated_data['orig_text']),
+                      user = User.objects.get(id=self.context['request'].user.id)
+                      )
+        spell.save()
+        return spell
