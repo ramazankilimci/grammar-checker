@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 import json
 from actions.utils import create_action, delete_action
 from actions.models import Action
+from django.utils.safestring import mark_safe
 
 home_url = 'http://justgram.com'
 
@@ -27,7 +28,23 @@ def index(request):
             
             srv = services
             orig_text = cd['spell_text']
+            spelled_list = srv.spell_sentence_with_mark(orig_text)
+            new_list = []
+            for spell in spelled_list:
+                if spell[1] == 1:
+                    spell[0] = "<mark>" + spell[0] + "</mark>"
+                    print(spell[0])
+                new_list.append(spell[0])
+            spelled_text_html = ' '.join(new_list)
+
+            # Used to show user the corrected words
+            spelled_text_html = mark_safe(spelled_text_html)
+
+            # Used to save spelled text into database
             spelled_text = srv.spell_sentence(orig_text)
+
+
+            print("Spelled text:", spelled_text)
             spelled = True
             print(request.user.is_anonymous)
             print(AnonymousUser.is_anonymous)
@@ -81,7 +98,7 @@ def index(request):
 
 
 
-    return render(request, 'grammar/index.html', {'orig_text': orig_text, 'spelled_text': spelled_text, 'spelled': spelled})
+    return render(request, 'grammar/index.html', {'orig_text': orig_text, 'spelled_text_html': spelled_text_html, 'spelled': spelled})
 
 # Custom AJAX required decorator
 def ajax_required(f):
