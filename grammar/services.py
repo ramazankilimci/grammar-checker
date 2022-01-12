@@ -88,14 +88,16 @@ def spell_sentence_with_mark(text):
     new_sentence = []
     for word in word_list:
         word = word.translate(str.maketrans('', '', string.punctuation))
-        score = 0 # Iniate score as 0
+        score = 0 # Initiate score as 0
+        wrong_word = '' # Initiate empty 
         for changed_elem in changedTokens:
             if word == changed_elem['token']:
                 print("Previous word", word)
+                wrong_word = word
                 word = changed_elem['suggestions'][0]['suggestion']
                 print("Changed word:", word)
                 score = 1 # Make score 1 if the word is changed. Used to mark the word
-        new_sentence.append([word, score])
+        new_sentence.append([word, score, wrong_word])
 
         # TODO: Below code will be used to punctuations if original word has
         #       after replacing the suggested word from Bing API

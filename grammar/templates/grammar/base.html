@@ -64,6 +64,7 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#">Supported Languages</a></li>
                   <li><a class="dropdown-item" href="/api/spell_check/">API</a></li>
+                  <li><a class="dropdown-item" href="{% url 'grammar:mistakes' %}">Mistakes</a></li>
                   {% comment %} <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
                 </ul>
@@ -102,7 +103,7 @@
           </div>
         </div>
       </nav>
-      
+
       {% block content %}
       {% endblock %}
   

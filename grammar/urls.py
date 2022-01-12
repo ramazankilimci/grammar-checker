@@ -7,5 +7,6 @@ app_name='grammar'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('/spellings', views.spellings, name='spellings'),
+    path('spellings', views.spellings, name='spellings'),
+    path('mistakes', views.most_made_mistakes, name='mistakes'),
 ]

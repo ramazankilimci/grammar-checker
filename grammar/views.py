@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .forms import SpellCheckForm
 from django.http import HttpResponseBadRequest
 from . import services
-from .models import Spell
+from .models import Mistake, Spell
 from django.contrib.auth.models import AnonymousUser
 import datetime
 from django.contrib.auth.models import User
@@ -10,6 +10,7 @@ import json
 from actions.utils import create_action, delete_action
 from actions.models import Action
 from django.utils.safestring import mark_safe
+from django.db.models import Count
 
 home_url = 'http://justgram.com'
 
@@ -18,7 +19,7 @@ def index(request):
     print("REQUEST: ", request)
     spelled = False
     orig_text = ''
-    spelled_text = ''
+    spelled_text_html = ''
     if request.method == 'POST':
         form = SpellCheckForm(request.POST)
         print("FORM: ", form)
@@ -30,11 +31,14 @@ def index(request):
             orig_text = cd['spell_text']
             spelled_list = srv.spell_sentence_with_mark(orig_text)
             new_list = []
-            for spell in spelled_list:
-                if spell[1] == 1:
-                    spell[0] = "<mark>" + spell[0] + "</mark>"
-                    print(spell[0])
-                new_list.append(spell[0])
+            if not request.user.is_anonymous:
+                for spell in spelled_list:
+                    if spell[1] == 1:
+                        mistake = Mistake(user=request.user, wrong_word=spell[2], right_word=spell[0])
+                        mistake.save() # Creates a record in database
+                        spell[0] = "<mark>" + spell[0] + "</mark>"
+                        print(spell[0])
+                    new_list.append(spell[0])
             spelled_text_html = ' '.join(new_list)
 
             # Used to show user the corrected words
@@ -123,7 +127,6 @@ def ajax_required(f):
 def get_published_date():
     return str(datetime.datetime.now().isoformat())
 
-
 # Gets user id as input and returns user profile
 def get_user_profile_url(user_id):
     return home_url + "/user/" + str(user_id)
@@ -135,7 +138,6 @@ def get_user_fullname(user):
 
 def get_spell_text_url(spell_id):
     return home_url + '/spell/' + str(spell_id)
-
 
 def spellings(request):
     # print("User Last Login:", request.user.last_login)
@@ -168,3 +170,8 @@ def spellings(request):
                                 ])
             print("Date is ", True)
     return render(request, 'grammar/spellings.html', {'activities': activities})
+
+def most_made_mistakes(request):
+    mistakes = Mistake.objects.filter(user=request.user).values('wrong_word', 'right_word', 'user').annotate(total=Count('wrong_word')).order_by('-total')
+
+    return render(request, 'grammar/mistakes.html', {'mistakes': mistakes})

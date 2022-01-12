@@ -44,30 +44,4 @@
     </div>
 </div>
 
-  <!--
-  <script type="text/javascript">
-    $(#spell).click(function(e){
-        //alert(target);
-        
-        e.preventDefault();
-        $.post('',
-            {
-                id: $('#'+target).data('id'),
-                action: $('#'+target).data('action')
-            },
-            function(data){
-                if (data['status'] == 'ok')
-                {
-                    var previous_action = $('#'+target).data('action');
-
-                    // toggle data-action
-                    $('#'+target).data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
-                    // toggle link text
-                    $('#'+target).text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
-}
-        });
-    });
-
-</script>
--->
   {% endblock%}
