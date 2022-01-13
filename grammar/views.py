@@ -41,7 +41,7 @@ def index(request):
                     if spell[1] == 1:
                         mistake = Mistake(user=request.user, wrong_word=spell[2], right_word=spell[0])
                         mistake.save() # Creates a record in database
-                        spell[0] = "<mark>" + spell[0] + "</mark>"
+                        spell[0] = "<span class=\"bg-warning text-dark\">" + spell[0] + "</span>"
                         print(spell[0])
                     new_list.append(spell[0])
             spelled_text_html = ' '.join(new_list)
