@@ -3,43 +3,40 @@
   {% block content%}
   <form action="{% url 'grammar:index' %}" class="row g-2" method="post" id="spell"> 
     {% csrf_token %}
-    <div class="container-md m-5">
-    
-      <h3>Your history</h3>
-  
+    <div class="container-md m-2">
+      <div class="container-md m-5">
+        <h3>Your spelling history</h3>
+      </div>
     <div class="container-md m-5">
     <div class="row">
       <div class="col">
 
             {% if user.is_authenticated %}
               {% if activities|length == 0 %}
-              <p> You do not have activities </p>
+              <p> You do not have any activities! </p>
               {% else %}
+              <ol class="list-group list-group-numbered">
                 {% for activity in activities %}
-                <p class="fs-4">
-                  <a href={{ activity.2 }}> {{ activity.1 }} </a>
-
-                  {% if activity.0 == 'Create' %}
-                    spell-checked
-                  {% elif activity.0 == 'Follow' %}
-                    searched
-                  {% elif activity.0 == 'Unfollow' %}
-                    favourited
-                  {% elif activity.0 == 'Search' %}
-                    tagged
-                  {% endif %}
-
-                  <a href={{ activity.4 }} class="text-decoration-none"> <mark>"{{ activity.3 }}" </mark></a>
-                  to 
-                  <a href={{ activity.6 }} class="text-decoration-none"> <mark>"{{ activity.5 }}"</mark> </a>
-                  <br>
-              </p>
-                {% endfor %}
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw text-danger"> 
+                        <strong>Wrong sentence:</strong> 
+                        <p> {{ activity.3 }} </p>
+                      </div>
+                      <div class="fw text-primary"> 
+                        <strong>Right sentence:</strong> 
+                        <p> {{ activity.5 }} </p>
+                      </div>
+                      <strong>Created:</strong> {{ activity.7|timesince }} ago
+                    </div>
+                    
+                  </li>
+               {% endfor %}
+              </ol>
               {% endif %}
           {% else %}
           <p> Please <a href="{% url 'account:login' %}">login</a> to see your history. </p>
           {% endif %}
-
       </div>
     </div>
 </div>

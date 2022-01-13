@@ -166,7 +166,9 @@ def spellings(request):
                                 action_object_name,
                                 action_object_url,
                                 action_target_name,
-                                action_target_url
+                                action_target_url,
+                                activity_published_date
+
                                 ])
             print("Date is ", True)
     return render(request, 'grammar/spellings.html', {'activities': activities})
