@@ -11,6 +11,11 @@ from actions.utils import create_action, delete_action
 from actions.models import Action
 from django.utils.safestring import mark_safe
 from django.db.models import Count
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+
 
 home_url = 'http://justgram.com'
 
@@ -160,6 +165,7 @@ def spellings(request):
             action_object_url = last_action['object']['url']
             action_target_name = last_action['target']['name']
             action_target_url = last_action['target']['url']
+            actionId = action.id
             activities.append([ action_type,
                                 action_actor_name,
                                 action_actor_url,
@@ -167,8 +173,8 @@ def spellings(request):
                                 action_object_url,
                                 action_target_name,
                                 action_target_url,
-                                activity_published_date
-
+                                activity_published_date,
+                                actionId
                                 ])
             print("Date is ", True)
     return render(request, 'grammar/spellings.html', {'activities': activities})
@@ -180,3 +186,18 @@ def most_made_mistakes(request):
 
 def profile(request):
     return render(request, 'grammar/profile.html')
+
+@csrf_exempt
+@ajax_required
+@require_POST
+@login_required
+def spelling_delete(request):
+    print("Spelling delete id:", request.POST.get('id'))
+    try:
+        action_id = request.POST.get('id')
+        action_obj = Action.objects.get(pk=action_id)
+        action_obj.delete()
+        return JsonResponse({'status': 'ok'})
+    except:
+        return JsonResponse({'status': 'error'})
+

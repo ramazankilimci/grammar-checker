@@ -10,4 +10,5 @@ urlpatterns = [
     path('spellings', views.spellings, name='spellings'),
     path('mistakes', views.most_made_mistakes, name='mistakes'),
     path('profile', views.profile, name='profile'),
+    path('spelling/delete/', views.spelling_delete, name='spelling_delete'),
 ]
