@@ -177,3 +177,6 @@ def most_made_mistakes(request):
     mistakes = Mistake.objects.filter(user=request.user).values('wrong_word', 'right_word', 'user').annotate(total=Count('wrong_word')).order_by('-total')
 
     return render(request, 'grammar/mistakes.html', {'mistakes': mistakes})
+
+def profile(request):
+    return render(request, 'grammar/profile.html')
