@@ -4,9 +4,9 @@ from .forms import UserRegistrationForm
 # Create your views here.
 
 def register(request):
-    if request.method == 'POST':
+    user_form = UserRegistrationForm(request.POST)
+    if request.method == 'POST' and user_form.is_valid:
         print(request.POST)
-        user_form = UserRegistrationForm(request.POST)
         # Create user object but do not commit
         new_user = user_form.save(commit=False)
         # Set the chosen password
