@@ -21,8 +21,8 @@
     {% csrf_token %}
     <div class="container-md m-5">
       <h4 data-bs-toggle="tooltip" data-bs-placement="top" title="Variety of languages are supported. Enjoy!">Please enter your sentence here:</h4>
-      <div class="row">
-        <div class="col">
+      <div class="row row-cols-3">
+        <div class="col-sm-5">
           <br>
           
           <textarea class="form-control" id="textarea1" rows="3" name="spell_text" id="id_spell_text">{% if spelled %} {{ orig_text}} {% endif %}</textarea>
@@ -32,13 +32,32 @@
           <br>
           <input type="submit" id="grammarbtn" class="btn btn-primary mb-3" >
         </div>
+        {% comment %} <div class="col-md-3 ms-md-auto">
+
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Active</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+
+        </div> {% endcomment %}
       </div>
+      
     </div>
   </form>
 
   <div class="container-md m-5">
-    <div class="row">
-      <div class="col">
+    <div class="row row-cols-3">
+      <div class="col-sm-6">
         {% if spelled %}
           <hr>
           <h4>Suggested text:</h4>
@@ -46,7 +65,9 @@
       </div>
       <div class="col">
         <br><br>
-        <button class="btn btn-outline-primary"  onclick="myFunction()" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">Copy</button>
+        <button class="btn btn-outline-primary mb-3"  onclick="myFunction()" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">Copy</button>
+      </div>
+      <div class="col-md-3 ms-md-auto">
       </div>
       {% endif %}
     </div>

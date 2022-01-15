@@ -13,3 +13,9 @@ class Spell(models.Model):
 
     def get_text(self):
         return spell_sentence(self.orig_text)
+
+class Mistake(models.Model):
+    user = models.ForeignKey(User, on_delete=CASCADE)
+    right_word = models.CharField(max_length=30)
+    wrong_word = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
