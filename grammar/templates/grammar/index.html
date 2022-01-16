@@ -65,7 +65,7 @@
       </div>
       <div class="col">
         <br><br>
-        <button class="btn btn-outline-primary mb-3"  onclick="myFunction()" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">Copy</button>
+        <button class="btn btn-outline-primary mb-3"  onclick="copyToClipboard('#mySpell')" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy to clipboard">Copy</button>
       </div>
       <div class="col-md-3 ms-md-auto">
       </div>
@@ -73,5 +73,14 @@
     </div>
 </div>
 
+<script>
+  function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+  }
+</script>
 
   {% endblock%}
