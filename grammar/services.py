@@ -30,7 +30,7 @@ def spell_sentence(text):
     response = requests.post(endpoint, headers=headers, params=params, data=data)
 
     json_response = response.json()
-
+    print("Main function")
     # Convert json to array
     changedTokens = json_response['flaggedTokens']
     print("Changed tokens:", changedTokens)
@@ -80,7 +80,8 @@ def spell_sentence_with_mark(text):
     response = requests.post(endpoint, headers=headers, params=params, data=data)
 
     json_response = response.json()
-
+    print(json_response)
+    print("Second function")
     # Convert json to array
     changedTokens = json_response['flaggedTokens']
     print("Changed tokens:", changedTokens)
