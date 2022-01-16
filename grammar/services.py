@@ -77,7 +77,7 @@ def spell_sentence_with_mark(text):
         'Ocp-Apim-Subscription-Key': api_key
     }
 
-    response = requests.post(endpoint, headers=headers, params=params, data=data)
+    response = requests.get(endpoint, headers=headers, params=params, data=data)
 
     json_response = response.json()
     print(json_response)
