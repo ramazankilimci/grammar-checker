@@ -228,3 +228,10 @@ def spelling_delete(request):
     except:
         return JsonResponse({'status': 'error'})
 
+def language(request):
+    """
+    Returns the supported languages.
+    """
+    languages = ['Turkish', 'English', 'German', 'French', 'Italian', 'Spanish']
+   
+    return render(request, 'grammar/language.html', {'languages': languages})

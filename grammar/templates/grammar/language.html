@@ -1,0 +1,33 @@
+ {% extends 'base.html' %}
+
+  {% block content%}
+ 
+    <div class="container-md m-5">
+      <div class="container-md m-5">
+        <h3>Supported Languages</h3>
+      </div>
+    <div class="container-md m-5">
+    <div class="row">
+      <div class="col">
+            
+                <ol class="list-group list-group-numbered">
+                  {% for language in languages %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">
+                        <div class="fw text-danger"> 
+                          <strong> {{ language }} </strong>
+                        </div>
+                        <div class="fw text-primary"> 
+                          <strong></strong> {{ mistake.right_word }}
+                        </div>
+                      </div>
+
+                    </li>
+                 {% endfor %}
+                </ol>
+
+      </div>
+    </div>
+</div>
+
+  {% endblock%}
