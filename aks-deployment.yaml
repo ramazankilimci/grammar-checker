@@ -79,6 +79,17 @@ spec:
       containers:
       - name: justgram-web
         image: "acrjustgram.azurecr.io/justgram:#{Build.BuildId}#"
+        env: 
+        - name: DATABASE_NAME
+          value: "grammar"
+        - name: DATABASE_USER
+          value: "postgres"
+        - name: DATABASE_PASSWORD
+          value: "postgres"
+        - name: DATABASE_HOSTNAME
+          value: "postgres"
+        - name: DATABASE_PORT
+          value: "5432"
         imagePullPolicy: Always
         command: ["/bin/bash", "-c"]
         args: ["python manage.py makemigrations; python manage.py migrate; gunicorn swe599_project.wsgi:application --bind 0.0.0.0:8000"]

@@ -89,16 +89,16 @@ WSGI_APPLICATION = 'swe599_project.wsgi.application'
 # }
 
 # Docker PostgreSQL configuration
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'grammar',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'grammardb',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'grammar',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'grammardb',
+#         'PORT': '5432'
+#     }
+# }
 
 # Kubernetes database configuration
 # DATABASES = {
@@ -111,6 +111,18 @@ DATABASES = {
 #         'PORT': '5432'
 #     }
 # }
+
+# If you use below configuration set local env variables using the values above.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DATABASE_NAME'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOSTNAME'],
+        'PORT': int(os.environ['DATABASE_PORT'])
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
