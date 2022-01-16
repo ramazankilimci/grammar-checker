@@ -100,7 +100,8 @@ Usage instructions will be shared soon!
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Deployment details will be given upon finalizing the project.
+Please go to the below link to reach local deployment details.
+[Local Deployment Wiki Page](https://github.com/ramazankilimci/grammar-checker/wiki/Local-Deployment)
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
