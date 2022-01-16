@@ -21,6 +21,11 @@ home_url = 'http://justgram.com'
 
 # Create your views here.
 def index(request):
+    """
+    Returns the homepage of the application.
+    If spell text is provided by the user,
+    it returns the spelled text.
+    """
     print("REQUEST: ", request)
     spelled = False
     orig_text = ''
@@ -58,6 +63,9 @@ def index(request):
             spelled = True
             print(request.user.is_anonymous)
             print(AnonymousUser.is_anonymous)
+
+            # Inside the IF condition, JSON-LD is created for Activity Stream
+            # Also it saves the original and spelled text into Spell modl
             if not request.user.is_anonymous:
                 spell_obj = Spell(orig_text=orig_text, spelled_text=spelled_text, user=request.user)
                 spell_obj.save()
@@ -95,10 +103,11 @@ def index(request):
                         })
                 print(w3c_json)
 
+                # Action is saved into ACTION model in ACTIONS app
+                # This is completely separate model from the main application
                 create_action(request.user, verb=1, activity_json=w3c_json, target=spell_obj)
             else:
                 form = SpellCheckForm()
-    print("SPELLED: ", spelled)
 
     return render(request, 'grammar/index.html', {'orig_text': orig_text, 'spelled_text_html': spelled_text_html, 'spelled': spelled})
 
@@ -123,21 +132,37 @@ def ajax_required(f):
     return wrap
 
 def get_published_date():
+    """
+    Returns the published date for activity in ISO format.
+    """
     return str(datetime.datetime.now().isoformat())
 
 # Gets user id as input and returns user profile
 def get_user_profile_url(user_id):
+    """
+    Returns the user profile url for activity stream.
+    """
     return home_url + "/user/" + str(user_id)
 
 
 # Gets user object as input and returns User's Full Name
 def get_user_fullname(user):
+    """
+    Returns the user full name for activity stream.
+    """
     return str(user.first_name + " " + user.last_name)
 
 def get_spell_text_url(spell_id):
+    """
+    Returns the spell text url for activity stream.
+    """
     return home_url + '/spell/' + str(spell_id)
 
 def spellings(request):
+    """
+    Returns the SPELLINGS of the user.
+    Gets activity from ACTION model in ACTIONS app.
+    """
     # print("User Last Login:", request.user.last_login)
     # actor_user_last_login = request.user.last_login.replace(tzinfo=None)
     activities = []
@@ -173,8 +198,13 @@ def spellings(request):
     return render(request, 'grammar/spellings.html', {'activities': activities})
 
 def most_made_mistakes(request):
-    mistakes = Mistake.objects.filter(user=request.user).values('wrong_word', 'right_word', 'user').annotate(total=Count('wrong_word')).order_by('-total')
-
+    """
+    Returns the most common mistakes for the user.
+    Relate information is gotten from MISTAKES model in GRAMMAR app.
+    """
+    mistakes = []
+    if not request.user.is_anonymous:
+        mistakes = Mistake.objects.filter(user=request.user).values('wrong_word', 'right_word', 'user').annotate(total=Count('wrong_word')).order_by('-total')
     return render(request, 'grammar/mistakes.html', {'mistakes': mistakes})
 
 def profile(request):
@@ -185,6 +215,10 @@ def profile(request):
 @require_POST
 @login_required
 def spelling_delete(request):
+    """
+    Deletes the specific spelling for the user.
+    Items are deleted from the ACTION model in the ACTIONS app.
+    """
     print("Spelling delete id:", request.POST.get('id'))
     try:
         action_id = request.POST.get('id')

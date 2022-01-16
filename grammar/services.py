@@ -56,7 +56,6 @@ def spell_sentence(text):
 def spell_sentence_with_mark(text):
 
     api_key = "574641672a0a483cb161517695d024b6"
-    #text = "needir bu sevg, dedigin?"
     endpoint = "https://api.bing.microsoft.com/v7.0/SpellCheck"
 
     # Convert sentence to word list
