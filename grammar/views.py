@@ -36,11 +36,12 @@ def index(request):
             orig_text = cd['spell_text']
             spelled_list = srv.spell_sentence_with_mark(orig_text)
             new_list = []
-            if not request.user.is_anonymous:
-                for spell in spelled_list:
+            #if not request.user.is_anonymous:
+            for spell in spelled_list:
                     if spell[1] == 1:
-                        mistake = Mistake(user=request.user, wrong_word=spell[2], right_word=spell[0])
-                        mistake.save() # Creates a record in database
+                        if not request.user.is_anonymous:
+                            mistake = Mistake(user=request.user, wrong_word=spell[2], right_word=spell[0])
+                            mistake.save() # Creates a record in database
                         spell[0] = "<span class=\"bg-warning text-dark\">" + spell[0] + "</span>"
                         print(spell[0])
                     new_list.append(spell[0])
@@ -98,14 +99,6 @@ def index(request):
             else:
                 form = SpellCheckForm()
     print("SPELLED: ", spelled)
-
-    # Save Spell action
-    # Target user object gets using below query
-    # user = User.objects.get(id=request.user.id)
-
-    # Save Spell Text
-
-
 
     return render(request, 'grammar/index.html', {'orig_text': orig_text, 'spelled_text_html': spelled_text_html, 'spelled': spelled})
 
