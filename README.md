@@ -94,9 +94,6 @@ For coding sytle tests, this project uses [pyling-django](https://github.com/PyC
 pylint --load-plugins pylint_django --django-settings-module=swe599_project.settings
 ```
 
-## 🎈 Usage <a name="usage"></a>
-
-Usage instructions will be shared soon!
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
