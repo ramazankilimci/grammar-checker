@@ -56,7 +56,7 @@ def spell_sentence(text):
 def spell_sentence_with_mark(text):
 
     api_key = "574641672a0a483cb161517695d024b6"
-    endpoint = "https://api.bing.microsoft.com/v7.0/SpellCheck"
+    endpoint = "https://api.bing.microsoft.com/v7.0/spellcheck"
 
     # Convert sentence to word list
     word_list = text.split(" ")
@@ -70,7 +70,8 @@ def spell_sentence_with_mark(text):
 
     params = {
         'mode': 'spell',
-        'text': text 
+        'text': text,
+        'mkt': 'tr-TR' 
     }
 
     headers = {
