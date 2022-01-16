@@ -69,7 +69,8 @@ def spell_sentence_with_mark(text):
     data = {'text': text}
 
     params = {
-        'mode': 'spell' 
+        'mode': 'spell',
+        'text': text 
     }
 
     headers = {
@@ -77,7 +78,8 @@ def spell_sentence_with_mark(text):
         'Ocp-Apim-Subscription-Key': api_key
     }
 
-    response = requests.get(endpoint, headers=headers, params=params, data=data)
+    # response = requests.get(endpoint, headers=headers, params=params, data=data)
+    response = requests.get(endpoint, headers=headers, params=params)
 
     json_response = response.json()
     print(json_response)
