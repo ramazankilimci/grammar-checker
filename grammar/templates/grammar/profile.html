@@ -6,12 +6,11 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-7">
             <div class="card p-3 py-4">
-                {% comment %} <div class="text-center"> <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle"> </div> {% endcomment %}
-                <div class="text-center mt-3"> <span class="bg-secondary p-1 px-4 rounded text-white"></span>
-                    <h5 class="mt-2 mb-0"> {{ request.user.first_name }} {{ request.user.last_name }} </h5> <span>UI/UX Designer</span>
-                    <div class="px-4 mt-1">
-                        <p class="fonts">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                    </div>
+                <div class="text-center"> <img src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?b=1&k=20&m=1214428300&s=170667a&w=0&h=CK3qVSUhgSH1otzazdvV9K2e_mP5BZC8ks0UeACQk5Y=" width="100" class="rounded-circle"> </div>
+                <div class="text-center mt-3"> 
+                    <h5 class="mt-2 mb-0"> {{ request.user.first_name }} {{ request.user.last_name }} </h5> <span> {{ request.user.email }} </span>
+                    
+                    
                     <ul class="social-list">
                         {% comment %} <li><i class="fa fa-facebook"></i></li>
                         <li><i class="fa fa-dribbble"></i></li>
@@ -19,7 +18,7 @@
                         <li><i class="fa fa-linkedin"></i></li>
                         <li><i class="fa fa-google"></i></li> {% endcomment %}
                     </ul>
-                    <div class="buttons"> <button class="btn btn-outline-primary px-4">Message</button> <button class="btn btn-primary px-4 ms-3">Contact</button> </div>
+                    {% comment %} <div class="buttons"> <button class="btn btn-outline-primary px-4">Message</button> <button class="btn btn-primary px-4 ms-3">Contact</button> </div> {% endcomment %}
                 </div>
             </div>
         </div>
