@@ -238,6 +238,9 @@ def language(request):
     """
     Returns the supported languages.
     """
-    languages = ['Turkish', 'English', 'German', 'French', 'Italian', 'Spanish']
+    languages = ['Turkish', 'English', 'Spanish']
    
     return render(request, 'grammar/language.html', {'languages': languages})
+
+def apiusage(request):
+    return render(request, 'grammar/apiusage.html')

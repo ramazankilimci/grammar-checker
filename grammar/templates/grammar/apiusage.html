@@ -1,0 +1,12 @@
+ {% extends 'base.html' %}
+
+  {% block content%}
+  
+  <div class="container-fluid">
+    <h1>Welcome {{ request.user.first_name }}</h1>
+    <p> Please go to <strong><a href="https://github.com/ramazankilimci/grammar-checker/wiki/API-Usage">API Documentation</a></strong> to find out its usage.</p>
+    <p> Once you click, you will be redirected to the GitHub Wiki Page.</p>
+    </p>
+  </div>
+
+  {% endblock%}

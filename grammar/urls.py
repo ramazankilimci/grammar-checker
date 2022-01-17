@@ -12,4 +12,5 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('spelling/delete/', views.spelling_delete, name='spelling_delete'),
     path('language', views.language, name='language'),
+    path('apiusage', views.apiusage, name='apiusage'),
 ]
