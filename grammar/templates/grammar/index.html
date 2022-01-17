@@ -5,6 +5,7 @@
     {% csrf_token %}
     <div class="container-md m-5">
       <h4 data-bs-toggle="tooltip" data-bs-placement="top" title="Variety of languages are supported. Enjoy!">Please enter your sentence here:</h4>
+      <p> It supports up to 120 characters now! {% if spelled %} Your character count is <strong>{{ orig_text|length }}</strong>! {% endif %}</p>
       <div class="row row-cols-3">
         <div class="col-sm-5">
           <br>

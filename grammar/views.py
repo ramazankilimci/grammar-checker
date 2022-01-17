@@ -39,6 +39,12 @@ def index(request):
             
             srv = services
             orig_text = cd['spell_text']
+            # orig_text_list = orig_text.split('.')
+            # spelled_list = []
+            # for text in orig_text_list:
+            #     temp_spelled_list = srv.spell_sentence_with_mark(text)
+            #     spelled_list +=temp_spelled_list
+            #     print("Spelled List:", spelled_list) 
             spelled_list = srv.spell_sentence_with_mark(orig_text)
             new_list = []
             #if not request.user.is_anonymous:

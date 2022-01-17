@@ -19,7 +19,9 @@ def spell_sentence(text):
     data = {'text': text}
 
     params = {
-        'mode': 'spell' 
+        'mode': 'spell',
+        'text': text,
+        'mkt': 'tr-TR' 
     }
 
     headers = {
@@ -27,7 +29,7 @@ def spell_sentence(text):
         'Ocp-Apim-Subscription-Key': api_key
     }
 
-    response = requests.post(endpoint, headers=headers, params=params, data=data)
+    response = requests.get(endpoint, headers=headers, params=params)
 
     json_response = response.json()
     print("Main function")
@@ -35,13 +37,23 @@ def spell_sentence(text):
     changedTokens = json_response['flaggedTokens']
     print("Changed tokens:", changedTokens)
     new_sentence = []
+    
     for word in word_list:
+        punctuation = ''
+        punc_word = word
+        for i in punc_word:
+            if i in string.punctuation:
+                punctuation = i
+                print("Punctuation:", i)
         word = word.translate(str.maketrans('', '', string.punctuation))
         for changed_elem in changedTokens:
             if word == changed_elem['token']:
                 print("Previous word", word)
                 word = changed_elem['suggestions'][0]['suggestion']
                 print("Changed word:", word)
+        
+        word = word + punctuation
+        print("Word:", word)
         new_sentence.append(word)
 
         # TODO: Below code will be used to punctuations if original word has
@@ -81,7 +93,7 @@ def spell_sentence_with_mark(text):
 
     # response = requests.get(endpoint, headers=headers, params=params, data=data)
     response = requests.get(endpoint, headers=headers, params=params)
-
+    
     json_response = response.json()
     print(json_response)
     print("Second function")
@@ -89,7 +101,15 @@ def spell_sentence_with_mark(text):
     changedTokens = json_response['flaggedTokens']
     print("Changed tokens:", changedTokens)
     new_sentence = []
+    
     for word in word_list:
+        punctuation = ''
+        punctuation = ''
+        punc_word = word
+        for i in punc_word:
+            if i in string.punctuation:
+                punctuation = i
+                print("Punctuation:", i)
         word = word.translate(str.maketrans('', '', string.punctuation))
         score = 0 # Initiate score as 0
         wrong_word = '' # Initiate empty 
@@ -100,6 +120,8 @@ def spell_sentence_with_mark(text):
                 word = changed_elem['suggestions'][0]['suggestion']
                 print("Changed word:", word)
                 score = 1 # Make score 1 if the word is changed. Used to mark the word
+        word = word + punctuation
+        print("Word:", word)
         new_sentence.append([word, score, wrong_word])
 
         # TODO: Below code will be used to punctuations if original word has
