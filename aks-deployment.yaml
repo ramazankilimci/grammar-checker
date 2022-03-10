@@ -78,7 +78,7 @@ spec:
     spec:
       containers:
       - name: justgram-web
-        image: "acrtonitest.azurecr.io/justgram:#{Build.BuildId}#"
+        image: "wedocr.azurecr.io/justgram:#{Build.BuildId}#"
         env: 
         - name: DATABASE_NAME
           value: "grammar"
