@@ -41,16 +41,31 @@ stages:
       - task: CmdLine@2
         inputs:
           script: 'echo $(Build.BuildId)'
+    - job: Publish_Artifact
+      steps:
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Pipeline.Workspace)'
+          artifact: 'k8s'
+          publishLocation: 'pipeline'
 
 - stage: Deploy_App
   jobs:
+    - job: Download_Artifacts
+      steps:
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'k8s'
+          targetPath: '$(Pipeline.Workspace)'
+
     - job: Deploy_K8s
       steps:
       - task: KubernetesManifest@0
         displayName: deploy
         inputs:
           kubernetesServiceConnection: 'k8s-wedo-test'
-          manifests: 'aks-deployment.yaml'
+          manifests: '$(Pipeline.Workspace)/aks-deployment.yaml'
       - task: CmdLine@2
         inputs:
           script: 'echo $(Build.BuildId)'
