@@ -23,13 +23,23 @@ stages:
 - stage: Deploy_App
   dependsOn: BuildandPush
   jobs:
-    - job: 
+    - job: Replace_Tokens
       steps:
       - task: replacetokens@5
         displayName: 'Replace tokens in **/*.yaml'
         inputs:
           targetFiles: '**/*.yaml'
-    - job: 
+          encoding: 'auto'
+          tokenPattern: 'default'
+          writeBOM: true
+          actionOnMissing: 'warn'
+          keepToken: false
+          actionOnNoFiles: 'continue'
+          enableTransforms: false
+          useLegacyPattern: false
+          enableTelemetry: true
+
+    - job: Deploy_K8s
       steps:
       - task: KubernetesManifest@0
         displayName: deploy
