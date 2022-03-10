@@ -41,7 +41,9 @@ stages:
       - task: CmdLine@2
         inputs:
           script: 'echo $(Build.BuildId)'
+
     - job: Publish_Artifact
+      dependsOn: Replace_Tokens
       steps:
       - task: PublishPipelineArtifact@1
         inputs:
@@ -50,6 +52,7 @@ stages:
           publishLocation: 'pipeline'
 
 - stage: Deploy_App
+  dependsOn: BuildandPush
   jobs:
     - job: Download_Artifacts
       steps:
