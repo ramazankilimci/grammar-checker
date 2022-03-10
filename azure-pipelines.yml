@@ -46,4 +46,3 @@ stages:
         inputs:
           kubernetesServiceConnection: 'k8s-wedo-test'
           manifests: 'aks-deployment.yaml'
-
