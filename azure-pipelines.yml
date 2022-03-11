@@ -58,7 +58,7 @@ stages:
         displayName: deploy
         inputs:
           kubernetesServiceConnection: 'k8s-wedo-test'
-          manifests: '$(Pipeline.Workspace)/k8s/aks-deployment.yaml'
+          manifests: '$(Pipeline.Workspace)/k8s/s/aks-deployment.yaml'
       - task: CmdLine@2
         inputs:
           script: 'echo $(Build.BuildId)'
