@@ -44,16 +44,13 @@ stages:
       - publish: '$(Build.ArtifactStagingDirectory)'
         artifact: 'k8s'
 
-- stage: Deploy_App
+- stage: Deploy
   dependsOn: BuildandPush
   jobs:
-    - job: Download_Artifacts
+    - job: Deploy_k8s
       steps:
       - download: current
         artifact: 'k8s'
-
-    - job: Deploy_K8s
-      steps:
       - task: KubernetesManifest@0
         displayName: deploy
         inputs:
