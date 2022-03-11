@@ -41,26 +41,17 @@ stages:
       - task: CmdLine@2
         inputs:
           script: 'echo $(Build.BuildId)'
-
-    - job: Publish_Artifact
-      dependsOn: Replace_Tokens
-      steps:
-      - task: PublishPipelineArtifact@1
-        inputs:
-          targetPath: '$(Pipeline.Workspace)'
-          artifact: 'k8s'
-          publishLocation: 'pipeline'
+      - publish: '$(Pipeline.Workspace)'
+        artifact: 'k8s'
 
 - stage: Deploy_App
   dependsOn: BuildandPush
   jobs:
     - job: Download_Artifacts
       steps:
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          buildType: 'current'
-          artifactName: 'k8s'
-          targetPath: '$(Pipeline.Workspace)'
+      - download: current
+        artifact: 'k8s'
+        patterns: '**/*.yaml'  
 
     - job: Deploy_K8s
       steps:
@@ -68,7 +59,8 @@ stages:
         displayName: deploy
         inputs:
           kubernetesServiceConnection: 'k8s-wedo-test'
-          manifests: '**/aks-deployment.yaml'
+          manifests: '$(Pipeline.Workspace)/k8s/s/aks-deployment.yaml'
       - task: CmdLine@2
         inputs:
           script: 'echo $(Build.BuildId)'
+      
